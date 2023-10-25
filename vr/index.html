@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cuerda Floja</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script>
+      
+        // Caida
+        AFRAME.registerComponent('fall-check', {
+            tick: function () {
+                var playerPosition = this.el.getAttribute('position');
+                if (Math.abs(playerPosition.x) > 0.15) {  // anchoi
+                    alert('GameOver');
+                    this.el.setAttribute('position', {x: 0, y: playerPosition.y, z: 45});
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <audio src="Sound/CircusMusic.mp3" autoplay></audio>
+
+
+    <a-scene>
+
+        <a-assets>
+            <img id="suelo" src="Textures/suelo/coast_sand_rocks_02_diff_4k.jpg">
+            <a-asset-item id="carpa" src="Assets/circus_playhouse_stage.glb"></a-asset-item>
+            <a-asset-item id="balloon" src="Assets/circus_hot_air_balloon.glb"></a-asset-item>
+            <a-asset-item id="girafa" src="Assets/giraffe.glb"></a-asset-item>
+            <a-asset-item id="arbol" src="Assets/treea.glb"></a-asset-item>
+            <a-asset-item id="mono" src="Assets/realsitic_monkey.glb"></a-asset-item>
+
+        </a-assets>
+
+        <!-- monos -->
+        <a-entity gltf-model="#mono"  position="0 20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#mono"  position="100 0 -300" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#mono"  position="-100 0 -300" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+
+        <!-- Arbol -->
+        <a-entity gltf-model="#arbol"  position="0 -20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#arbol"  position="30 -20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#arbol"  position="-30 -20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#arbol"  position="-50 -20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#arbol"  position="50 -20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#arbol"  position="-70 -20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#arbol"  position="70 -20 -400" scale="100 100 100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+
+        <!-- girafa -->
+        <a-entity gltf-model="#girafa"  position="-100 0 -50" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#girafa"  position="100 0 -50" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#girafa"  position="-250 0 -100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#girafa"  position="250 0 -100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#girafa"  position="-100 0 -100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#girafa"  position="100 0 -100" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#girafa"  position="-250 0 -150" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+        <a-entity gltf-model="#girafa"  position="250 0 -150" rotation="0 0 0" scale="20 20 20"></a-entity></a-entity>
+
+        <!-- globos -->
+        <a-entity gltf-model="#balloon" position="100 0 -400" rotation="0 -30 0"></a-entity></a-entity>
+        <a-entity gltf-model="#balloon" position="-100 0 -400" rotation="0 -30 0"></a-entity></a-entity>
+        
+
+        <!-- Carpas -->
+        <a-entity gltf-model="#carpa" position="25 -20 -20" rotation="0 -30 0"></a-entity></a-entity>
+        <a-entity gltf-model="#carpa" position="-25 -20 -20" rotation="0 30 0"></a-entity></a-entity>
+        
+        <a-entity gltf-model="#carpa" position="30 -20 10" rotation="0 -90 0"></a-entity></a-entity>
+        <a-entity gltf-model="#carpa" position="-30 -20 10" rotation="0 90 0"></a-entity></a-entity>
+        
+        <a-entity gltf-model="#carpa" position="30 -20 40" rotation="0 -90 0"></a-entity></a-entity>
+        <a-entity gltf-model="#carpa" position="-30 -20 40" rotation="0 90 0"></a-entity></a-entity>
+
+
+
+        <!-- Cuerda Floja -->
+        <a-box position="0 1 -5" width="0.1" height="0.1" depth="100" color="#4a4a4a"></a-box>
+        <!-- camara -->
+        <a-camera position="0 1.8 45" wasd-controls-enabled="true" custom-movement fall-check></a-camera>
+
+        <a-plane position="0 -20 0" rotation="-90 0 0" width="1000" height="1000" material="src: #suelo"></a-plane>
+        <a-sky color="#FF6347"></a-sky>
+
+
+        <a-light type="ambient" color="#888"></a-light>
+        <a-light type="point" position="0 8 -4" intensity="1.5" distance="15" color="#FFF"></a-light>
+
+
+
+        <!-- soporte cuerda -->
+        <a-box position="0 0.5 -55"></a-box>
+        <a-box position="0 0.5 45"></a-box>
+
+
+
+    </a-scene>
+</body>
+</html>
