@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+</head>
+<body>
+    <a-scene>
+        <!-- Cámara y controles del jugador -->
+        <a-entity camera position="0 1.6 0" look-controls wasd-controls></a-entity>
+    
+        <!-- Suelo (para referencia visual) -->
+        <a-plane position="0 0 -5" rotation="-90 0 0" width="20" height="20" color="#7BC8A4"></a-plane>
+    
+        <!-- Cuerda floja -->
+        <a-box position="0 1 -5" width="0.1" height="0.05" depth="10" color="#FFC300"></a-box>
+        
+        <!-- Objetivo: Llegar al final de la cuerda -->
+        <a-box position="0 1 -10" width="1" height="1" depth="0.5" color="#FF5733"></a-box>
+    
+        <!-- Script para detectar si el jugador se cae -->
+        <script>
+            AFRAME.registerComponent('check-fall', {
+                tick: function () {
+                    var player = this.el.getObject3D('camera');
+                    if (player.position.y < 1 || player.position.y > 2 || Math.abs(player.position.x) > 0.05) {
+                        alert('¡Has caído!');
+                        player.position.set(0, 1.6, 0);
+                    }
+                }
+            });
+        </script>
+
+        <a-entity camera position="0 1.6 0" look-controls wasd-controls check-fall></a-entity>
+
+    
+    </a-scene>
+    
+</body>
+</html>
